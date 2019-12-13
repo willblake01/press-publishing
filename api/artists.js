@@ -10,6 +10,7 @@ artistsRouter.param('artistId', (req, res, next, artistId) => {
   const values = {
     $artistId: artistId
   }
+
   db.get(sql, values, (err, artist) => {
     if (err) {
       next(err);
@@ -57,10 +58,11 @@ artistsRouter.post('/', (req, res, next) => {
     $biography: biography,
     $isCurrentlyEmployed: isCurrentlyEmployed
   }
+
   db.run(sql, values, function(error) {
     if (error) {
       next(error);
-    }else {
+    } else {
       db.get(`SELECT * FROM Artist WHERE Artist.id = ${this.lastID}`, (err, artist) => {
         if (err) {
           next(err);
